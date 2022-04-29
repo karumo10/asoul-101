@@ -3,3 +3,7 @@ dist
 node_modules
 .vscode-test/
 *.vsix
+py-test/
+test_music
+assets/logo.jpeg
+assets/logo.png

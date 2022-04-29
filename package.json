@@ -11,10 +11,34 @@
 	],
 	"activationEvents": [
 		"onCommand:asoul-101.helloWorld",
-		"onCommand:asoul-101.diana"
+		"onCommand:asoul-101.diana",
+		"onView:asoulSongs"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "asoul-101",
+					"title": "A-SOUL 来啦！",
+					"icon": "assets/asoul.svg"
+				}
+			]
+		},
+		"views": {
+			"explorer": [
+				{
+					"id": "asoulSongs",
+					"name": "A-SOUL 的歌"
+				}
+			],
+			"asoul-101": [
+				{
+					"id": "asoul-music",
+					"name": "魂歌🎤"
+				}
+			]
+		},
 		"commands": [
 			{
 				"command": "asoul-101.helloWorld",
@@ -46,5 +70,10 @@
 		"mocha": "^9.2.2",
 		"typescript": "^4.5.5",
 		"@vscode/test-electron": "^2.1.3"
+	},
+	"dependencies": {
+		"axios": "^0.27.1",
+		"csv-parse": "^5.0.4",
+		"play-sound": "^1.1.5"
 	}
 }

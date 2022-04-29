@@ -6,4 +6,6 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
-- Initial release
+- Initial release, show a 'asoul' in sidebar
+
+- Enable download song database and update the song list in a treeview 2022/4/30
