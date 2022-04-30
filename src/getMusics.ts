@@ -8,7 +8,7 @@ import { promisify } from "util";
 
 const axios = require('axios');
 
-type MusicRecord = {
+export type MusicRecord = {
     id: string,
     日期: string,
     录播来源: string,
@@ -33,8 +33,11 @@ type MusicRecord = {
     第二版文件类型: string
 }
 
-export class totalMusicListProvider {
-    constructor() {}
+export class TotalMusicListProvider {
+    private musicResourceList : MusicRecord[];
+    constructor() {
+        this.musicResourceList = [];
+    }
     private async fetchMusicList() : Promise<any> {
         // get the song database csv
         return axios(
@@ -54,7 +57,7 @@ export class totalMusicListProvider {
 
     
 
-    private getTotalMusicList() : MusicRecord[] {
+    private readTotalMusicList() : MusicRecord[] {
         // get all the music listed.
         const csvFilePath = path.resolve(__dirname, 'songDB.csv');
     
@@ -64,16 +67,18 @@ export class totalMusicListProvider {
             delimiter : ',',
             columns: true,
         });
-
+        this.musicResourceList = records;
         return records;
     }
 
-
+    public getTotalMusicList() : MusicRecord[] {
+        return this.musicResourceList;
+    }  
     
 
     async getMusicTreeNodes() : Promise<MusicTreeItem[]> {
         await this.fetchMusicList();
-        const musicRecords = this.getTotalMusicList();
+        const musicRecords = this.readTotalMusicList();
         return musicRecords.map((musicRec : MusicRecord) => {
             return new MusicTreeItem(this.parseSongLabel(musicRec), musicRec.歌名, musicRec.演唱者, musicRec.日期, vscode.TreeItemCollapsibleState.None);
         });

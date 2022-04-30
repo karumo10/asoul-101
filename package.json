@@ -12,7 +12,7 @@
 	"activationEvents": [
 		"onCommand:asoul-101.helloWorld",
 		"onCommand:asoul-101.diana",
-		"onView:asoulSongs"
+		"onView:asoul-101.asoulSongs"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -28,8 +28,13 @@
 		"views": {
 			"asoul-101": [
 				{
-					"id": "asoulSongs",
+					"id": "asoul-101.asoulSongs",
 					"name": "魂歌🎤"
+				},
+				{
+					"type": "webview",
+					"id": "asoul-101.musicPlayer",
+					"name": "播放器"
 				}
 			]
 		},
@@ -41,6 +46,10 @@
 			{
 				"command": "asoul-101.diana",
 				"title": "嘉然"
+			},
+			{
+				"command": "asoul-101.showSongList",
+				"title": "A-SOUL目前唱过多少首歌了？"
 			}
 		]
 	},
