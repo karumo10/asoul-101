@@ -26,15 +26,9 @@
 			]
 		},
 		"views": {
-			"explorer": [
-				{
-					"id": "asoulSongs",
-					"name": "A-SOUL 的歌"
-				}
-			],
 			"asoul-101": [
 				{
-					"id": "asoul-music",
+					"id": "asoulSongs",
 					"name": "魂歌🎤"
 				}
 			]
