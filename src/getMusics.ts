@@ -75,7 +75,7 @@ export class totalMusicListProvider {
         await this.fetchMusicList();
         const musicRecords = this.getTotalMusicList();
         return musicRecords.map((musicRec : MusicRecord) => {
-            return new MusicTreeItem(this.parseSongLabel(musicRec), musicRec.歌名, musicRec.演唱者, musicRec.日期, vscode.TreeItemCollapsibleState.Collapsed);
+            return new MusicTreeItem(this.parseSongLabel(musicRec), musicRec.歌名, musicRec.演唱者, musicRec.日期, vscode.TreeItemCollapsibleState.None);
         });
     }
 
