@@ -60,6 +60,7 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.showInformationMessage('length is ' + asoulProvider.getTotalMusicList().length);
 	});
 
+
 	context.subscriptions.push(disposable1, disposable_diana, asoulStatusBarItemProvider.getItem(), checkSongListLength);
 
 	const musicPlayerProvider = new MusicPlayer(context.extensionUri);
