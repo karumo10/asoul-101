@@ -9,20 +9,35 @@ export class MusicPlayer implements vscode.WebviewViewProvider {
 		private readonly _extensionUri: vscode.Uri,
 	) { }
 
-    private getHtmlForWebview() {
-        return `<!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Cat Coding</title>
-        </head>
-        <body>
-            <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width="300" />
-            <script>
-            <script>
-        </body>
-        </html>`;
+    private getHtmlForWebview(webview: vscode.Webview) {
+
+		const scriptUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'main.js'));
+		const playUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'play.png'));
+		const pauseUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'pause.png'));
+		const prevUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'prev.png'));
+		const nextUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'next.png'));
+		let content = `<!DOCTYPE html>
+		<html lang="en">
+		<head>
+			<meta charset="UTF-8">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+			<title>Document</title>
+		</head>
+		<body>
+			<audio preload id='music'><source src="https://mknaifen-my.sharepoint.com/personal/nf_asoul-rec_com/_layouts/15/download.aspx?UniqueId=593fca5d-07e5-4c04-a047-ee3f6a97a69c&Translate=false&tempauth=eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvbWtuYWlmZW4tbXkuc2hhcmVwb2ludC5jb21AYTcyNTRmOWEtNWMwNi00NDI1LThkZGUtZjVhMmExNzA0Zjc3IiwiaXNzIjoiMDAwMDAwMDMtMDAwMC0wZmYxLWNlMDAtMDAwMDAwMDAwMDAwIiwibmJmIjoiMTY1MTQyNDk4NyIsImV4cCI6IjE2NTE0Mjg1ODciLCJlbmRwb2ludHVybCI6IjdQQTlqdGg3THowWmo2dmNscFA1K05uSW9CVENyV0xkWWRxejQxZFQ1VUk9IiwiZW5kcG9pbnR1cmxMZW5ndGgiOiIxNDgiLCJpc2xvb3BiYWNrIjoiVHJ1ZSIsImNpZCI6IlpqVTBaVFprTURBdE5XUXhZUzAwTnpOa0xUa3lPRGd0TlRNM09USmpaR1JpTldVMyIsInZlciI6Imhhc2hlZHByb29mdG9rZW4iLCJzaXRlaWQiOiJOR0UxWkRWaFpHTXROMkl6WmkwMFkyVTVMV0k1WWpZdFlUQmxNMkl5T1dZeE16WmwiLCJhcHBfZGlzcGxheW5hbWUiOiLlvZXmkq3nq5ktU3R1ZGlvIiwiZ2l2ZW5fbmFtZSI6IueyiSIsImZhbWlseV9uYW1lIjoi5aW257KJIiwic2lnbmluX3N0YXRlIjoiW1wia21zaVwiXSIsImFwcGlkIjoiMDIxYWUyYjItODlkMC00NmY5LWFmOGItYThmMzdiNDJhZWE5IiwidGlkIjoiYTcyNTRmOWEtNWMwNi00NDI1LThkZGUtZjVhMmExNzA0Zjc3IiwidXBuIjoibmZAYXNvdWwtcmVjLmNvbSIsInB1aWQiOiIxMDAzMjAwMTlCOEZDM0I1IiwiY2FjaGVrZXkiOiIwaC5mfG1lbWJlcnNoaXB8MTAwMzIwMDE5YjhmYzNiNUBsaXZlLmNvbSIsInNjcCI6ImFsbGZpbGVzLnJlYWQgYWxsZmlsZXMud3JpdGUiLCJ0dCI6IjIiLCJ1c2VQZXJzaXN0ZW50Q29va2llIjpudWxsLCJpcGFkZHIiOiIyMC4xOTAuMTMyLjEwNSJ9.U0dPTzVOcXFoZjN0S09mZlRxOXVsTG1KRkNBN1BoM0dXanRQREVoSjdyUT0&ApiVersion=2.0"></audio>
+			<button id="prev"><img src="${prevUri}" width="96" height="96" border="0"></button>
+			<button id="play"><img src="${playUri}" width="96" height="96" id="music-btn" border="0"></button>
+			<button id="next"><img src="${nextUri}" width="96" height="96" border="0"></button>
+			<script>{{extraContent}}</script>
+			<script src="${scriptUri}"}></script>
+			<!-- 插入图片且引用上面的函数，实现功能 -->
+	
+		</body>
+		</html>`;
+		content = content.replace('{{extraContent}}', 'const pauseUri=\'sadsa\'; const playUri=\'${playUri}\'')
+		return content;
     }
 	public resolveWebviewView(
 		webviewView: vscode.WebviewView,
@@ -40,6 +55,6 @@ export class MusicPlayer implements vscode.WebviewViewProvider {
 			]
 		};
 
-		webviewView.webview.html = this.getHtmlForWebview();
+		webviewView.webview.html = this.getHtmlForWebview(webviewView.webview);
     }
 }
