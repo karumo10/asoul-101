@@ -111,7 +111,7 @@ export class TotalMusicListProvider {
         } else if (mappedArr.includes('F')) {
             return 'F';
         } else {
-            return mappedArr.join();
+            return mappedArr.join(''); // 向晚和嘉然合唱应当显示为AD
         }
         
     }
@@ -128,7 +128,7 @@ export class TotalMusicListProvider {
 
         let singerId: string = this.mapSingerNameToId(singerName);
         let braceNote = '';
-        if (version != '' && note != '') {
+        if (version != '' || note != '') {
             if (version == '') {
                 braceNote = '【' + note + '】';
             } else if (note == '') {
@@ -153,7 +153,7 @@ export class MusicTreeItem extends vscode.TreeItem {
 		super(label, collapsibleState);
 		this.tooltip = `${this.songName} - ${this.singerName}`;
 		this.description = this.tooltip;
-        this.contextValue = 'song'; 
+        this.contextValue = 'song';  // 配合 package.json 的 viewItem == song
         this.command = { // 单击，加入播放列表
             arguments : [label],
             command : 'asoul-101.musicSelect',
