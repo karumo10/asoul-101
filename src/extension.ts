@@ -69,7 +69,9 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.registerWebviewViewProvider(MusicPlayer.viewType, musicPlayerProvider));
 	
 	let sendMusicInformToPlayer = vscode.commands.registerCommand('asoul-101.musicSelect', (label) => {
-		vscode.window.showInformationMessage('showing the link: ' + label);
+		vscode.window.showInformationMessage('选择歌曲：' + label);
+		musicPlayerProvider.sendMusicInformToPlayer(label); // 组成OneDrive链接
+
 	});
 	
 	context.subscriptions.push(

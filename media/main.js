@@ -1,6 +1,6 @@
 (function () {
     const vscode = acquireVsCodeApi();
-    function turnPlayToPause(music, playButton, pauseButton) {
+    function turnPlayFromPause(music, playButton, pauseButton) {
         var promise = music.play();
         if (promise !== undefined) {
             promise.then(_ => {
@@ -12,7 +12,7 @@
             });
         }
     }
-    function turnPauseToPlay(music, playButton, pauseButton) {
+    function turnPauseFromPlay(music, playButton, pauseButton) {
         music.pause();
         console.log("haha");
         playButton.style.display = "block";
@@ -23,29 +23,76 @@
         var musicPlayButton = document.getElementById('play');
         var musicPauseButton = document.getElementById('pause');
         if (music.paused == true){
-            turnPlayToPause(music, musicPlayButton, musicPauseButton);
+            turnPlayFromPause(music, musicPlayButton, musicPauseButton);
         }
         else {
-            turnPauseToPlay(music, musicPlayButton, musicPauseButton);
+            turnPauseFromPlay(music, musicPlayButton, musicPauseButton);
         }
     }
-    var musicList = new Array();
-    musicList = ["https://mknaifen-my.sharepoint.com/personal/nf_asoul-rec_com/_layouts/15/download.aspx?UniqueId=593fca5d-07e5-4c04-a047-ee3f6a97a69c&Translate=false&tempauth=eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvbWtuYWlmZW4tbXkuc2hhcmVwb2ludC5jb21AYTcyNTRmOWEtNWMwNi00NDI1LThkZGUtZjVhMmExNzA0Zjc3IiwiaXNzIjoiMDAwMDAwMDMtMDAwMC0wZmYxLWNlMDAtMDAwMDAwMDAwMDAwIiwibmJmIjoiMTY1MTQzMTQ2MCIsImV4cCI6IjE2NTE0MzUwNjAiLCJlbmRwb2ludHVybCI6IjdQQTlqdGg3THowWmo2dmNscFA1K05uSW9CVENyV0xkWWRxejQxZFQ1VUk9IiwiZW5kcG9pbnR1cmxMZW5ndGgiOiIxNDgiLCJpc2xvb3BiYWNrIjoiVHJ1ZSIsImNpZCI6Ik1EVXdaVGhrT0RndE0ySmhaQzAwT0dObExXSXdNamd0WTJNeU5qZGxNamszWldJMiIsInZlciI6Imhhc2hlZHByb29mdG9rZW4iLCJzaXRlaWQiOiJOR0UxWkRWaFpHTXROMkl6WmkwMFkyVTVMV0k1WWpZdFlUQmxNMkl5T1dZeE16WmwiLCJhcHBfZGlzcGxheW5hbWUiOiLlvZXmkq3nq5ktU3R1ZGlvIiwiZ2l2ZW5fbmFtZSI6IueyiSIsImZhbWlseV9uYW1lIjoi5aW257KJIiwic2lnbmluX3N0YXRlIjoiW1wia21zaVwiXSIsImFwcGlkIjoiMDIxYWUyYjItODlkMC00NmY5LWFmOGItYThmMzdiNDJhZWE5IiwidGlkIjoiYTcyNTRmOWEtNWMwNi00NDI1LThkZGUtZjVhMmExNzA0Zjc3IiwidXBuIjoibmZAYXNvdWwtcmVjLmNvbSIsInB1aWQiOiIxMDAzMjAwMTlCOEZDM0I1IiwiY2FjaGVrZXkiOiIwaC5mfG1lbWJlcnNoaXB8MTAwMzIwMDE5YjhmYzNiNUBsaXZlLmNvbSIsInNjcCI6ImFsbGZpbGVzLnJlYWQgYWxsZmlsZXMud3JpdGUiLCJ0dCI6IjIiLCJ1c2VQZXJzaXN0ZW50Q29va2llIjpudWxsLCJpcGFkZHIiOiI0MC4xMjYuNC40MCJ9.KzBSTytyUi9NakcvMEYzdEU0Yks2UG9QNzNxVXZzMndlb0JDYmJqTnVYST0&ApiVersion=2.0"]; //用数组存储所有歌曲的路径 测试：Quiet
-    var num = 0;
-    var n = musicList.length;//获取数组的长度
+    class MusicListNode {
+        constructor(music) {
+            this.music = music;
+            this.prev = null;
+            this.next = null;
+        }
+    }
+    class MusicLinkedList {
+        constructor() {
+            this.head = new MusicListNode(""); // dummy node
+        }
+        addMusic(music) { // add at second place
+            var currNode = new MusicListNode(music);
+            currNode.prev = null;
+            currNode.next = null;
+            if (!this.head || this.head.music == "") {
+                console.log("insert head");
+                this.head = currNode;
+            } else {
+                // 插在第二个（下一首播放）
+                currNode.next = this.head.next;
+                if (this.head.next != null) {
+                    this.head.next.prev = currNode;
+                }
+                this.head.next = currNode;
+                currNode.prev = this.head;
+            }
+        }
+    }
+    var musicLinkedList = new MusicLinkedList();
+    var currentNode = musicLinkedList.head;
+
+    window.addEventListener('message', event => {
+        // receive msg from extension (music raw link)
+        const msg = event.data;
+        const newMusicLink = msg.link;
+        console.log("add one music:" + newMusicLink);
+        musicLinkedList.addMusic(newMusicLink);
+        if (currentNode.music == "") {
+            currentNode = musicLinkedList.head;
+            var music = document.getElementById('music');
+            music.src = currentNode.music;
+        }
+        console.log(currentNode.music);
+    }) 
+    // var num = 0;
+    // var n = musicList.length;//获取数组的长度
     function lastmusic() {
-        num = (num+n-1)%n;
+        // num = (num+n-1)%n;
         var music = document.getElementById('music');
         var music_btn = document.getElementById('music-btn');
-        music.src = musicList[num];
-        turnPlayToPause(music, music_btn);
+        // music.src = musicList[num];
+        music.src = currentNode.prev.music;
+        currentNode = currentNode.prev;
+        turnPlayFromPause(music, music_btn);
     }//切上一首歌
     function nextmusic() {
-        num = (num+1)%n;
+        // num = (num+1)%n;
         var music = document.getElementById('music');
         var music_btn = document.getElementById('music-btn');
-        music.src = musicList[num];
-        turnPlayToPause(music, music_btn);
+        music.src = currentNode.next.music;
+        currentNode = currentNode.next;
+        // music.src = musicList[num];
+        turnPlayFromPause(music, music_btn);
     }//切下一首歌
     window.onload=function () {
         music.addEventListener('ended', function () {

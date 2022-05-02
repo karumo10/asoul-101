@@ -1,8 +1,8 @@
 const axios = require('axios');
 import * as vscode from 'vscode'
 
-export class musicRawProvider {
-    musicLink: string;
+export class MusicRawProvider {
+    private musicLink: string;
     constructor() {
         this.musicLink = '';
     }
@@ -11,11 +11,12 @@ export class musicRawProvider {
         return axios(
             {
                 method: 'get',
-                url: oneDriveLink,
+                url: 'https://as-archive-load-balance.kzmidc.workers.dev/Normalized%20Audio%20New/' + encodeURI(oneDriveLink),
                 responseType: 'text'
             }
         ).then( (response: any) => {
-            this.musicLink = response.data.match(/url: \'(.*?)\'/)[0]; // 获取匹配列表第一个即可，实际可能会有多个匹配，大概都是valid的
+            const arr = [...response.data.matchAll(/url: \'(.*?)\'/g)];
+            this.musicLink = arr[0][1]; // 获取匹配列表第一个即可，实际可能会有多个匹配，大概都是valid的
         }).catch((error: any) => {
             vscode.window.showErrorMessage(error);
         })
