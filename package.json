@@ -50,8 +50,20 @@
 			{
 				"command": "asoul-101.showSongList",
 				"title": "A-SOUL目前唱过多少首歌了？"
+			},
+			{
+				"command": "asoul-101.musicSelect",
+				"title": "select this song"
 			}
-		]
+		],
+		"menus": {
+			"view/item/context": [
+				{
+					"command": "asoul-101.musicSelect",
+					"when": "view == asoul-101 && viewItem == song"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",

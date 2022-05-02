@@ -8,6 +8,19 @@ export class MusicPlayer implements vscode.WebviewViewProvider {
 	constructor(
 		private readonly _extensionUri: vscode.Uri,
 	) { }
+	
+	public sendMusicInformToPlayer(link : string) {
+		// send the link of music resource
+		if (!this._view) {
+			vscode.window.showInformationMessage('no view!');
+			return;
+		} else {
+			vscode.window.showInformationMessage('showing the link: ' + link);
+			// this._view.webview.postMessage({ link: link });
+		}
+	}
+
+
 
     private getHtmlForWebview(webview: vscode.Webview) {
 

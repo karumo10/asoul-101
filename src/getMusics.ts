@@ -153,6 +153,13 @@ export class MusicTreeItem extends vscode.TreeItem {
 		super(label, collapsibleState);
 		this.tooltip = `${this.songName} - ${this.singerName}`;
 		this.description = this.tooltip;
+        this.contextValue = 'song'; 
+        this.command = { // 单击，加入播放列表
+            arguments : [label],
+            command : 'asoul-101.musicSelect',
+            title : 'select this song',
+            tooltip : '加入播放列表'
+        }
 	  }
 }
 

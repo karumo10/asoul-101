@@ -67,6 +67,14 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(
 		vscode.window.registerWebviewViewProvider(MusicPlayer.viewType, musicPlayerProvider));
+	
+	let sendMusicInformToPlayer = vscode.commands.registerCommand('asoul-101.musicSelect', (label) => {
+		vscode.window.showInformationMessage('showing the link: ' + label);
+	});
+	
+	context.subscriptions.push(
+		sendMusicInformToPlayer
+	);
 
 }
 
@@ -74,3 +82,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 // this method is called when your extension is deactivated
 export function deactivate() {}
+function list(list: any): (...args: any[]) => any {
+	throw new Error('Function not implemented.');
+}
+
