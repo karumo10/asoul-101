@@ -49,7 +49,7 @@ export class TotalMusicListProvider {
         ).then( (response: any) => {
             const csvFilePath = path.resolve(__dirname, 'songDB.csv');
             fs.writeFileSync(csvFilePath, response.data);
-            vscode.window.showInformationMessage('successfully download the song db!');
+            vscode.window.showInformationMessage('歌曲数据库下载完毕！');
         }).catch((error: any) => {
             vscode.window.showErrorMessage(error)
         })

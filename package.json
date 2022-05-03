@@ -40,18 +40,6 @@
 		},
 		"commands": [
 			{
-				"command": "asoul-101.helloWorld",
-				"title": "Hello World"
-			},
-			{
-				"command": "asoul-101.diana",
-				"title": "嘉然"
-			},
-			{
-				"command": "asoul-101.showSongList",
-				"title": "A-SOUL目前唱过多少首歌了？"
-			},
-			{
 				"command": "asoul-101.musicSelect",
 				"title": "select this song"
 			}

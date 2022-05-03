@@ -13,10 +13,10 @@ export class MusicPlayer implements vscode.WebviewViewProvider {
 	public async sendMusicInformToPlayer(link : string) {
 		// send the link of music resource
 		if (this._view) {
-			vscode.window.showInformationMessage('showing the link: ' + link);
+			// vscode.window.showInformationMessage('showing the link: ' + link);
 			const musicRawProvider = new util.MusicRawProvider(); 
 			let rawLink = await musicRawProvider.getMusicLink(link);
-			vscode.window.showInformationMessage(rawLink);
+			// vscode.window.showInformationMessage(rawLink);
 			this._view.webview.postMessage({ link: rawLink, name : link });
 			// link: 歌曲实际播放地址
 			// name：歌曲的识别名 eg. 2021.03.17 C 云烟成雨【3.0】.m4a

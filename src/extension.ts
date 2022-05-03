@@ -2,7 +2,6 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { TotalMusicListProvider, MusicTreeItem, MusicRecord } from './getMusics';
-import { StatusBarItemWrapper } from './statusBar';
 import { MusicPlayer } from './musicPlayer'
 
 export class AsoulProvider implements vscode.TreeDataProvider <MusicTreeItem> {
@@ -34,12 +33,11 @@ export class AsoulProvider implements vscode.TreeDataProvider <MusicTreeItem> {
 }
 
 
-let asoulStatusBarItemProvider = new StatusBarItemWrapper();
 let asoulProvider = new AsoulProvider();
 
 export function activate(context: vscode.ExtensionContext) {
 	
-	vscode.window.showInformationMessage('Congratulations, your extension "asoul-101" is now active!');
+	vscode.window.showInformationMessage('A-SOUL 音乐播放器 已经激活~');
 	// vscode.window.registerTreeDataProvider(
 	// 	'asoulSongs',
 	// 	new asoulProvider()
@@ -50,18 +48,6 @@ export function activate(context: vscode.ExtensionContext) {
 		treeDataProvider: asoulProvider
 	});
 
-	let disposable1 = vscode.commands.registerCommand('asoul-101.helloWorld', () => {
-		vscode.window.showInformationMessage('A-SOUL时代，沸腾期待!');
-	});
-	let disposable_diana = vscode.commands.registerCommand('asoul-101.diana', () => {
-		vscode.window.showInformationMessage('关注嘉然顿顿解馋');
-	});
-	let checkSongListLength = vscode.commands.registerCommand('asoul-101.showSongList', () => {
-		vscode.window.showInformationMessage('length is ' + asoulProvider.getTotalMusicList().length);
-	});
-
-
-	context.subscriptions.push(disposable1, disposable_diana, asoulStatusBarItemProvider.getItem(), checkSongListLength);
 
 	const musicPlayerProvider = new MusicPlayer(context.extensionUri);
 
@@ -69,7 +55,7 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.registerWebviewViewProvider(MusicPlayer.viewType, musicPlayerProvider));
 	
 	let sendMusicInformToPlayer = vscode.commands.registerCommand('asoul-101.musicSelect', (label) => {
-		vscode.window.showInformationMessage('选择歌曲：' + label);
+		vscode.window.showInformationMessage('已将 ' + label + ' 加入歌单');
 		musicPlayerProvider.sendMusicInformToPlayer(label); // 组成OneDrive链接
 
 	});
