@@ -122,7 +122,7 @@ export class TotalMusicListProvider {
         const date: string = rawSongRecord.日期;
         const singerName: string = rawSongRecord.演唱者;
         const songName: string = rawSongRecord.歌名;
-        const version: string = rawSongRecord.版本号;
+        const version: string = rawSongRecord.版本号.trim(); // 2022.04.23,,,0,209110,,m4a,星光派对,2.0 之后的曲目版本号后面都有空格，呃呃
         const note: string = rawSongRecord.版本备注;
         const fileExt: string = rawSongRecord.文件类型;
 
