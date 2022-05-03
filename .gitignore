@@ -5,5 +5,3 @@ node_modules
 *.vsix
 py-test/
 test_music
-assets/logo.jpeg
-assets/logo.png
