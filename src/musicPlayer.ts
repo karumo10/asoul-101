@@ -17,7 +17,9 @@ export class MusicPlayer implements vscode.WebviewViewProvider {
 			const musicRawProvider = new util.MusicRawProvider(); 
 			let rawLink = await musicRawProvider.getMusicLink(link);
 			vscode.window.showInformationMessage(rawLink);
-			this._view.webview.postMessage({ link: rawLink });
+			this._view.webview.postMessage({ link: rawLink, name : link });
+			// link: 歌曲实际播放地址
+			// name：歌曲的识别名 eg. 2021.03.17 C 云烟成雨【3.0】.m4a
 		}
 	}
 
@@ -50,9 +52,13 @@ export class MusicPlayer implements vscode.WebviewViewProvider {
 			<button id="play"><img src="${playUri}" width="96" height="96" border="0"></button>
 			<button id="pause"><img src="${pauseUri}" width="96" height="96" border="0"></button>
 			<button id="next"><img src="${nextUri}" width="96" height="96" border="0"></button>
+			<h4> 当前歌单 </h4>
+			<ol id="songList">
+				
+			</ol>
 			<script>{{extraContent}}</script>
 			<script src="${scriptUri}"}></script>
-			<!-- 插入图片且引用上面的函数，实现功能 -->
+			
 	
 		</body>
 		</html>`;

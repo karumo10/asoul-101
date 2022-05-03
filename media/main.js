@@ -30,8 +30,9 @@
         }
     }
     class MusicListNode {
-        constructor(music) {
+        constructor(music, name) {
             this.music = music;
+            this.name = name;
             this.prev = null;
             this.next = null;
         }
@@ -40,21 +41,21 @@
         constructor() {
             this.head = new MusicListNode(""); // dummy node
         }
-        addMusic(music) { // add at second place
-            var currNode = new MusicListNode(music);
+        addMusic(music, name, playingNode) { // add at second place
+            var currNode = new MusicListNode(music, name);
             currNode.prev = null;
             currNode.next = null;
             if (!this.head || this.head.music == "") {
                 console.log("insert head");
                 this.head = currNode;
             } else {
-                // 插在第二个（下一首播放）
-                currNode.next = this.head.next;
-                if (this.head.next != null) {
-                    this.head.next.prev = currNode;
+                // 下一首播放
+                currNode.next = playingNode.next;
+                if (playingNode.next != null) {
+                    playingNode.next.prev = currNode;
                 }
-                this.head.next = currNode;
-                currNode.prev = this.head;
+                playingNode.next = currNode;
+                currNode.prev = playingNode;
             }
         }
     }
@@ -65,15 +66,34 @@
         // receive msg from extension (music raw link)
         const msg = event.data;
         const newMusicLink = msg.link;
-        console.log("add one music:" + newMusicLink);
-        musicLinkedList.addMusic(newMusicLink);
-        if (currentNode.music == "") {
+        const musicName = msg.name;
+            // link: 歌曲实际播放地址
+			// name：歌曲的识别名 eg. 2021.03.17 C 云烟成雨【3.0】.m4a
+        console.log("成功添加歌曲：" + musicName);
+        musicLinkedList.addMusic(newMusicLink, musicName, currentNode);
+        if (currentNode.music == "") { 
             currentNode = musicLinkedList.head;
             var music = document.getElementById('music');
             music.src = currentNode.music;
         }
-        console.log(currentNode.music);
-    }) 
+        updateSongList(musicLinkedList);
+    });
+
+    function updateSongList(musicLinkedList) {
+        var list = document.getElementById("songList");
+        // var currentSong = document.createElement("li");
+        list.innerHTML = ""; // clear all
+        var curr = musicLinkedList.head;
+        console.log()
+        while (curr != null) {
+            var currentSongLi = document.createElement("li");
+            currentSongLi.append(document.createTextNode(curr.name));
+            list.appendChild(currentSongLi);
+            curr = curr.next;
+        }
+        // currentSong.appendChild(document.createTextNode(musicName));
+        // list.appendChild(currentSong);
+    }
     // var num = 0;
     // var n = musicList.length;//获取数组的长度
     function lastmusic() {
