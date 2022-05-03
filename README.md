@@ -13,16 +13,71 @@
 
 参见 `package.json` 
 
+### ffmpeg 补丁
+首先按照如下办法安装 FFMPEG 的补丁（来自[UNOFFICIAL Netease Music extension for Visual Studio Code 网易云音乐扩展](https://github.com/nondanee/vsc-netease-music)，感谢！）
+
+[VS Code 使用的 Electron 版本不包含 ffmpeg](https://stackoverflow.com/a/51735036)，需替换自带的 ffmpeg 动态链接库才能正常播放 (每次更新 VS Code 都需重新替换)
+
+*VS Code for Windows 1.31.0 - 1.35.1 不需替换，1.36.0 后无此待遇*
+
+*VS Code for macOS 1.43+ 替换后闪退[解决方案](https://github.com/nondanee/vsc-netease-music/issues/86#issuecomment-786546931)*
+
+<details><summary>
+<b>Manual Replacement</b>
+</summary>
+
+通过 VS Code 版本在 `https://raw.githubusercontent.com/Microsoft/vscode/%version%/.yarnrc` 查看其使用的 Electron 版本，并于 `https://github.com/electron/electron/releases/tag/%version%` 下载对应的 **Electron 完整版本**进行替换
+
+#### Windows
+下载 **electron-%version%-win32-%arch%.zip**
+
+替换 `./ffmpeg.dll`
+
+#### macOS
+下载 **electron-%version%-darwin-x64.zip**
+
+替换 `./Electron.app/Contents/Frameworks/Electron\ Framework.framework/Libraries/libffmpeg.dylib`
+
+#### Linux
+下载 **electron-%version%-linux-%arch%.zip**
+
+替换 `./libffmpeg.so`
+
+</details>
+
+<details><summary>
+<b>Automatic Replacement</b>
+</summary>
+
+使用 Python 脚本替换 (使用[淘宝 Electron 镜像](https://npm.taobao.org/mirrors/electron/)，兼容 Python 2/3，绝大部分发行版自带环境)
+
+**默认安装位置下 Linux 和 Windows 需要以管理员身份运行，macOS 不需要**
+
+#### Windows Powershell
+
+```powershell
+Invoke-RestMethod https://gist.githubusercontent.com/nondanee/f157bbbccecfe29e48d87273cd02e213/raw | python
+```
+
+#### Unix Shell
+
+```
+curl https://gist.githubusercontent.com/nondanee/f157bbbccecfe29e48d87273cd02e213/raw | python
+```
+
+如果 VS Code 使用默认配置安装，脚本会自动寻找并替换，若自定义了安装位置，请自行修改 [installation](https://gist.github.com/nondanee/f157bbbccecfe29e48d87273cd02e213#file-helper-py-L20)
+
+</details>
+
+
+### 如何运行扩展
+1. `npm install`
+2. `npm run watch`
+3. 按 `F5` 新窗自动打开
+
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+Treeview 显示歌单，Webview view 音乐播放
 
 ## Known Issues
 
