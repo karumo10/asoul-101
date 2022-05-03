@@ -208,22 +208,24 @@
         console.log("curr="+currentSongId.toString()+";len="+musicLinkedList.length);
         updateSongList(musicLinkedList, currentSongId);
         var music = document.getElementById('music');
-        var music_btn = document.getElementById('music-btn');
+        var musicPlayButton = document.getElementById('play');
+        var musicPauseButton = document.getElementById('pause');
         // music.src = musicList[num];
         music.src = currentNode.prev.music;
         currentNode = currentNode.prev;
-        turnPlayFromPause(music, music_btn);
+        turnPlayFromPause(music, musicPlayButton, musicPauseButton);
     }//切上一首歌
     function nextmusic() {
         currentSongId = (currentSongId + 1) % musicLinkedList.length;
         console.log("curr="+currentSongId.toString()+";len="+musicLinkedList.length);
         updateSongList(musicLinkedList, currentSongId);
         var music = document.getElementById('music');
-        var music_btn = document.getElementById('music-btn');
+        var musicPlayButton = document.getElementById('play');
+        var musicPauseButton = document.getElementById('pause');
         music.src = currentNode.next.music;
         currentNode = currentNode.next;
         // music.src = musicList[num];
-        turnPlayFromPause(music, music_btn);
+        turnPlayFromPause(music, musicPlayButton, musicPauseButton);
     }//切下一首歌
     window.onload=function () {
         music.addEventListener('ended', function () {
