@@ -32,6 +32,7 @@ export class MusicPlayer implements vscode.WebviewViewProvider {
 		const pauseUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'pause.png'));
 		const prevUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'prev.png'));
 		const nextUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'next.png'));
+		const delUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'delete.png'));
 		let content = `<!DOCTYPE html>
 		<html lang="en">
 		<head>
@@ -42,16 +43,44 @@ export class MusicPlayer implements vscode.WebviewViewProvider {
 				#pause {
 					display:none;
 				}
-
+				#control {
+					padding: 10px;
+				}
+				.songItem {
+					border: 2px solid white;
+					border-radius: 25px;
+					padding: 10px;
+					margin: 10px;
+				}
+				#songList {
+					list-style: none;
+				}
+				.del {
+					display: inline;
+					float: right;
+					width: 20px;
+					height: 20px;
+					border-radius: 50%;
+					background: url("${delUri}") no-repeat;
+					background-color: #ffffff;
+					background-size: cover
+				}
+				.songText {
+					display: inline;
+				}
 			</style>
 			<title>Document</title>
 		</head>
 		<body>
 			<audio preload id='music'><source src=""></audio>
-			<button id="prev"><img src="${prevUri}" width="96" height="96" border="0"></button>
-			<button id="play"><img src="${playUri}" width="96" height="96" border="0"></button>
-			<button id="pause"><img src="${pauseUri}" width="96" height="96" border="0"></button>
-			<button id="next"><img src="${nextUri}" width="96" height="96" border="0"></button>
+			<div id="control">
+			<center>
+				<button id="prev"><img src="${prevUri}" width="20" height="20" border="0"></button>
+				<button id="play"><img src="${playUri}" width="20" height="20" border="0"></button>
+				<button id="pause"><img src="${pauseUri}" width="20" height="20" border="0"></button>
+				<button id="next"><img src="${nextUri}" width="20" height="20" border="0"></button>
+			</center>
+			</div>
 			<h4> 当前歌单 </h4>
 			<ol id="songList">
 				
