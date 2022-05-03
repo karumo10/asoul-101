@@ -37,17 +37,24 @@
             this.next = null;
         }
     }
+    // circular list
     class MusicLinkedList {
         constructor() {
-            this.head = new MusicListNode(""); // dummy node
+            this.head = new MusicListNode("", "noname"); // dummy node
+            this.head.next = this.head;
+            this.head.prev = this.head;
+            this.length = 0;
         }
         addMusic(music, name, playingNode) { // add at second place
+            this.length = this.length + 1; // 歌曲列表增长1
             var currNode = new MusicListNode(music, name);
             currNode.prev = null;
             currNode.next = null;
             if (!this.head || this.head.music == "") {
                 console.log("insert head");
                 this.head = currNode;
+                this.head.next = this.head;
+                this.head.prev = this.head;
             } else {
                 // 下一首播放
                 currNode.next = playingNode.next;
@@ -60,10 +67,11 @@
         }
     }
     var musicLinkedList = new MusicLinkedList();
-    var currentNode = musicLinkedList.head;
+    var currentNode = musicLinkedList.head; // 当前正在播放的歌曲在链表中的节点
+    var currentSongId = 0; // 当前正在播放的歌曲的<li> id
 
     window.addEventListener('message', event => {
-        // receive msg from extension (music raw link)
+        // receive msg from extension
         const msg = event.data;
         const newMusicLink = msg.link;
         const musicName = msg.name;
@@ -76,20 +84,28 @@
             var music = document.getElementById('music');
             music.src = currentNode.music;
         }
-        updateSongList(musicLinkedList);
+        updateSongList(musicLinkedList, currentSongId);
     });
 
-    function updateSongList(musicLinkedList) {
+    function updateSongList(musicLinkedList, currId) {
         var list = document.getElementById("songList");
         // var currentSong = document.createElement("li");
         list.innerHTML = ""; // clear all
         var curr = musicLinkedList.head;
-        console.log()
-        while (curr != null) {
+        var index = 0; // song index, which will become id
+        while (1) {
             var currentSongLi = document.createElement("li");
             currentSongLi.append(document.createTextNode(curr.name));
+            currentSongLi.setAttribute('id', index.toString());
+            if (index == currId) {
+                currentSongLi.style.fontWeight="bolder";
+            }
             list.appendChild(currentSongLi);
             curr = curr.next;
+            index = index + 1;
+            if (curr == musicLinkedList.head) {
+                break;
+            }
         }
         // currentSong.appendChild(document.createTextNode(musicName));
         // list.appendChild(currentSong);
@@ -97,7 +113,9 @@
     // var num = 0;
     // var n = musicList.length;//获取数组的长度
     function lastmusic() {
-        // num = (num+n-1)%n;
+        currentSongId = (currentSongId - 1) % musicLinkedList.length;
+        console.log("curr="+currentSongId.toString()+";len="+musicLinkedList.length);
+        updateSongList(musicLinkedList, currentSongId);
         var music = document.getElementById('music');
         var music_btn = document.getElementById('music-btn');
         // music.src = musicList[num];
@@ -106,7 +124,9 @@
         turnPlayFromPause(music, music_btn);
     }//切上一首歌
     function nextmusic() {
-        // num = (num+1)%n;
+        currentSongId = (currentSongId + 1) % musicLinkedList.length;
+        console.log("curr="+currentSongId.toString()+";len="+musicLinkedList.length);
+        updateSongList(musicLinkedList, currentSongId);
         var music = document.getElementById('music');
         var music_btn = document.getElementById('music-btn');
         music.src = currentNode.next.music;
