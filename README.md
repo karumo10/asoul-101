@@ -6,7 +6,7 @@
 
 从 [A-SOUL 录音棚](studio.asf.ink) ([Github](https://github.com/chobitsnerv/lite-web-studio/tree/a-soul)) 获取歌单，并且播放
 
-感谢录音棚网站的开发与维护人员，以及提供 A-SOUL 歌曲资源的切片man们，没有你们对 A-SOUL 长久的热情和付出，本项目不可能实现
+感谢录音棚网站的开发与维护人员，一直在维护A-SOUL音视频资源的@嘉然小姐的奶粉罐，以及提供 A-SOUL 歌曲资源的切片man们，没有你们对 A-SOUL 长久的热情和付出，本项目不可能实现
 
 
 ## Requirements
@@ -81,7 +81,11 @@ Treeview 显示歌单，Webview view 音乐播放
 
 ## Known Issues
 
-DEVELOPING
+暂无
+
+## Future Plan
+
+添加搜索歌曲功能；添加歌曲进度条；添加音量控制；添加单曲循环、随机播放功能
 
 ## Release Notes
 
