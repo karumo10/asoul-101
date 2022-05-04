@@ -14,7 +14,6 @@
     }
     function turnPauseFromPlay(music, playButton, pauseButton) {
         music.pause();
-        console.log("haha");
         playButton.style.display = "inline";
         pauseButton.style.display = "none";
     }
@@ -52,11 +51,9 @@
             currNode.next = null;
             if (this.length == 1) {
                 let currentPlayingMusic = document.getElementById('music'); 
-                console.log('第一次');
                 currentPlayingMusic.src = music; // 上一次最后一首歌被删除，强行将资源赋给当前的音乐资源
             }
             if (!this.head || this.head.music == "") {
-                console.log("insert head");
                 this.head = currNode;
                 this.head.next = this.head;
                 this.head.prev = this.head;
@@ -98,12 +95,10 @@
             }
             if (currNode.next == currNode) {
                 // only head
-                console.log('only head del, rplce');
                 currNode.music = "";
                 currNode.name = "这里还什么都没有哦~";
                 this.head = currNode;
             } else {
-                console.log('not only head del');
                 currNode.prev.next = currNode.next;
                 currNode.next.prev = currNode.prev;
                 if (currNode == this.head) {
@@ -111,7 +106,6 @@
                 }
             }
             this.length--;
-            console.log("删除歌曲"+currNode.name);
             if (currentSongId != index) {
                 if (currentSongId > index) {
                     currentSongId--;
@@ -120,7 +114,6 @@
                 updateSongList(this, currentSongId); 
             } else { // 删除的就是当前这首，加粗的id不能再是currentID了
                 // 当前 currentSongId 就是下一首该播的 indexz
-                console.log("curr="+currentSongId.toString()+";len="+musicLinkedList.length);
                 currentNode = currentNode.next;
                 updateSongList(this, currentSongId); 
             }
@@ -140,7 +133,7 @@
         const musicName = msg.name;
             // link: 歌曲实际播放地址
 			// name：歌曲的识别名 eg. 2021.03.17 C 云烟成雨【3.0】.m4a
-        console.log("成功添加歌曲：" + musicName);
+        // console.log("成功添加歌曲：" + musicName);
         musicLinkedList.addMusic(newMusicLink, musicName, currentNode);
         if (currentNode.music == "") { 
             currentNode = musicLinkedList.head;
@@ -161,7 +154,6 @@
         }
         while (1) {
             // 遍历链表，生成一个新的歌单元素
-            console.log("我卡了，啊");
             var songDiv = document.createElement("div");
             songDiv.setAttribute('class', 'songItem');
             songDiv.setAttribute('id', 'div'+index.toString());
@@ -189,23 +181,20 @@
                 break;
             }
         }
-        // currentSong.appendChild(document.createTextNode(musicName));
-        // list.appendChild(currentSong);
 
         // 更新delete按钮的绑定
         Array.from(document.getElementsByClassName('del')).forEach((del) => {
             del.addEventListener('click', () => {
                 let id = del.getAttribute('id').match(/\d+/); // 获取 id
-                console.log("del id="+id.toString());
+                // console.log("del id="+id.toString());
                 musicLinkedList.deleteMusic(id);
             });
         });
     }
-    // var num = 0;
-    // var n = musicList.length;//获取数组的长度
+
     function lastmusic() {
         currentSongId = (currentSongId - 1 + musicLinkedList.length) % musicLinkedList.length;
-        console.log("curr="+currentSongId.toString()+";len="+musicLinkedList.length);
+        // console.log("curr="+currentSongId.toString()+";len="+musicLinkedList.length);
         updateSongList(musicLinkedList, currentSongId);
         var music = document.getElementById('music');
         var musicPlayButton = document.getElementById('play');
@@ -217,7 +206,7 @@
     }//切上一首歌
     function nextmusic() {
         currentSongId = (currentSongId + 1) % musicLinkedList.length;
-        console.log("curr="+currentSongId.toString()+";len="+musicLinkedList.length);
+        // console.log("curr="+currentSongId.toString()+";len="+musicLinkedList.length);
         updateSongList(musicLinkedList, currentSongId);
         var music = document.getElementById('music');
         var musicPlayButton = document.getElementById('play');
@@ -234,7 +223,6 @@
     }//自动连播功能，监听播放情况，结束之后就调用下一首歌的函数
     document.getElementById('play').addEventListener('click', () => {
         playPause();
-        console.log(Array.from(document.getElementsByClassName('del')));
     });
     document.getElementById('pause').addEventListener('click', () => {
         playPause();
