@@ -1,20 +1,27 @@
-# asoul-101 README
+# A-SOUL Music Player on VS Code
 
-🍦🍬🥣🐺✨ A-SOUL vscode 插件，让你一边写代码一边溜 A-SOUL 的歌！ 🍦🍬🥣🐺✨
+🍦🍬🥣🐺✨ A-SOUL vscode 插件，让你一边写代码一边听 A-SOUL 的歌！ 🍦🍬🥣🐺✨
 
 ## Features
 
-从 [A-SOUL 录音棚](studio.asf.ink) ([Github](https://github.com/chobitsnerv/lite-web-studio/tree/a-soul)) 获取歌单，并且播放
++ 安装插件后，点击侧边栏的图标可以进入本插件，开始加载曲库
++ 曲库加载完毕后，单击想听的歌即可加入当前歌单
++ 播放/上一首/下一首
++ 点击叉就可以将歌曲从歌单中删除
++ 采用列表循环，保持开启状态即可一直播放
 
-感谢录音棚网站的开发与维护人员，一直在维护A-SOUL音视频资源的@嘉然小姐的奶粉罐，以及提供 A-SOUL 歌曲资源的切片man们，没有你们对 A-SOUL 长久的热情和付出，本项目不可能实现
+## Acknowledgement
+本插件是从 [A-SOUL 录音棚](studio.asf.ink) ([Github](https://github.com/chobitsnerv/lite-web-studio/tree/a-soul)) 获取歌单，并且从 @嘉然小姐的奶粉罐 维护的[曲库](https://as-archive-load-balance.kzmidc.workers.dev/Normalized%20Audio%20New/) 播放歌曲。
+
+感谢录音棚网站的开发与维护人员，一直在维护A-SOUL音视频资源的@嘉然小姐的奶粉罐，以及提供 A-SOUL 歌曲资源的切片man们，没有你们对 A-SOUL 长久的热情和付出，本项目不可能实现。
 
 
 ## Requirements
 
-参见 `package.json` 
+由于本插件采用 Webview View & HTML Audio 进行播放，而 VS Code 方面长期以来均不提供 ffmpeg 支持，**VS Code 必须安装 ffmpeg 补丁才能正确运行本插件**！
 
 ### ffmpeg 补丁
-首先按照如下办法安装 FFMPEG 的补丁（来自[UNOFFICIAL Netease Music extension for Visual Studio Code 网易云音乐扩展](https://github.com/nondanee/vsc-netease-music)，感谢！）
+首先按照如下办法安装 FFMPEG 的补丁，推荐 `Automatic Replacement`（来自[UNOFFICIAL Netease Music extension for Visual Studio Code 网易云音乐扩展](https://github.com/nondanee/vsc-netease-music)，感谢！）
 
 [VS Code 使用的 Electron 版本不包含 ffmpeg](https://stackoverflow.com/a/51735036)，需替换自带的 ffmpeg 动态链接库才能正常播放 (每次更新 VS Code 都需重新替换)
 
@@ -71,9 +78,18 @@ curl https://gist.githubusercontent.com/nondanee/f157bbbccecfe29e48d87273cd02e21
 
 
 ### 如何运行扩展
+#### 自行编译
+```
 1. `npm install`
 2. `npm run watch`
 3. 按 `F5` 新窗自动打开
+```
+
+#### 下载 release
+下载 release 的 `asoul-101-0.0.1.vsix`后
+```
+code --install-extension .\asoul-101-0.0.1.vsix
+```
 
 ## Extension Settings
 
@@ -81,7 +97,8 @@ Treeview 显示歌单，Webview view 音乐播放
 
 ## Known Issues
 
-暂无
+1. 播放一些体积较大的歌曲时，可能需要稍等片刻
+2. 有时播放按钮会遇到卡顿的情况，这是歌曲资源尚未加载完毕导致的，可以多点击几次播放按钮或者更换良好的网络环境。流媒体资源来自 Onedrive 网盘，实测无论是否使用代理均较快。
 
 ## Future Plan
 
@@ -89,4 +106,4 @@ Treeview 显示歌单，Webview view 音乐播放
 
 ## Release Notes
 
-N/A
+2022/5/4 ver 0.0.1 发布
