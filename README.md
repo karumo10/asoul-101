@@ -1,7 +1,25 @@
+<div align="center"> 
+
+
+<img src="https://raw.githubusercontent.com/karumo10/asoul-101/main/assets/ext-logo.png" alt="icon" width="256px">
+
 # A-SOUL Music Player on VS Code
+
+
+
 
 🍦🍬🥣🐺✨ A-SOUL vscode 插件，让你一边写代码一边听 A-SOUL 的歌！ 🍦🍬🥣🐺✨
 
+
+</div>
+
+<div align="right"> 
+
+#### 🎵「有你的陪伴，从不觉孤单」🎵 —— 庆《超级敏感》发布一周年
+
+</div>
+
+*\*本项目已参加稀土掘金 2022 编程挑战赛， 队伍名：可是蒂娜我，作品链接[在这里](https://hackathon2022.juejin.cn/#/works/detail?unique=YfGUyQ0sUy_Cljd7BlL98g)，欢迎投票捏*
 ## Features
 
 + 安装插件后，点击侧边栏的图标可以进入本插件，开始加载曲库
