@@ -3,8 +3,8 @@
 	"displayName": "A-SOUL Music Player",
 	"description": "在 vscode 中播放 A-SOUL 的歌曲",
 	"version": "0.0.1",
-	"icon": "assets/asoul.png",
-	"publisher": "karumo10",
+	"icon": "assets/ext-logo.png",
+	"publisher": "Sqrt3",
 	"license": "MIT",
 	"repository": "https://github.com/karumo10/asoul-101",
 	"engines": {
@@ -25,7 +25,7 @@
 				{
 					"id": "asoul-101",
 					"title": "A-SOUL 来啦！",
-					"icon": "assets/asoul.png"
+					"icon": "assets/sidebar-logo.png"
 				}
 			]
 		},
