@@ -2,7 +2,7 @@
 	"name": "asoul-101",
 	"displayName": "A-SOUL Music Player",
 	"description": "在 vscode 中播放 A-SOUL 的歌曲",
-	"version": "0.0.1",
+	"version": "0.0.3",
 	"icon": "assets/ext-logo.png",
 	"publisher": "DianaOnceMore-Sqrt3",
 	"license": "MIT",
