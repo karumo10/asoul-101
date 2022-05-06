@@ -30,9 +30,9 @@
 + 可后台播放，你可以一边 debug 一边享受音乐 (2022/5/6 新增)
 
 ## Acknowledgement
-本插件是从 [A-SOUL 录音棚](studio.asf.ink) ([Github](https://github.com/chobitsnerv/lite-web-studio/tree/a-soul)) 获取歌单，并且从 @嘉然小姐的奶粉罐 维护的[曲库](https://as-archive-load-balance.kzmidc.workers.dev/Normalized%20Audio%20New/) 播放歌曲。
+本插件是从 [A-SOUL 录音棚](studio.asf.ink) ([Github](https://github.com/chobitsnerv/lite-web-studio/tree/a-soul)) 获取歌单，并且从由 [A-soul Studio 内容组](https://space.bilibili.com/674044855) 维护，[@嘉然小姐的奶粉罐](https://space.bilibili.com/5273959) 托管的 [曲库](https://as-archive-load-balance.kzmidc.workers.dev/Normalized%20Audio%20New/) 播放歌曲。
 
-感谢录音棚网站的开发与维护人员，一直在维护A-SOUL音视频资源的@嘉然小姐的奶粉罐，以及提供 A-SOUL 歌曲资源的切片man们，没有你们对 A-SOUL 长久的热情和付出，本项目不可能实现。
+感谢录音棚网站的开发与维护人员，一直在切片并整理A-SOUL音频资源的 [A-soul Studio 内容组](https://space.bilibili.com/674044855)，没有你们对 A-SOUL 长久的热情和付出，本项目不可能实现。
 
 
 ## Requirements
