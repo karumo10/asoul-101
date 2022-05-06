@@ -5,3 +5,4 @@ node_modules
 *.vsix
 py-test/
 test_music
+token.txt

@@ -52,7 +52,11 @@ export function activate(context: vscode.ExtensionContext) {
 	const musicPlayerProvider = new MusicPlayer(context.extensionUri);
 
 	context.subscriptions.push(
-		vscode.window.registerWebviewViewProvider(MusicPlayer.viewType, musicPlayerProvider));
+		vscode.window.registerWebviewViewProvider(MusicPlayer.viewType, musicPlayerProvider, {
+			webviewOptions: {
+				retainContextWhenHidden: true // background playing
+			}
+		}));
 	
 	let sendMusicInformToPlayer = vscode.commands.registerCommand('asoul-101.musicSelect', (label) => {
 		vscode.window.showInformationMessage('已将 ' + label + ' 加入歌单');

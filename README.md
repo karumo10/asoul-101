@@ -27,6 +27,7 @@
 + 播放/上一首/下一首
 + 点击叉就可以将歌曲从歌单中删除
 + 采用列表循环，保持开启状态即可一直播放
++ 可后台播放，你可以一边 debug 一边享受音乐 (2022/5/6 新增)
 
 ## Acknowledgement
 本插件是从 [A-SOUL 录音棚](studio.asf.ink) ([Github](https://github.com/chobitsnerv/lite-web-studio/tree/a-soul)) 获取歌单，并且从 @嘉然小姐的奶粉罐 维护的[曲库](https://as-archive-load-balance.kzmidc.workers.dev/Normalized%20Audio%20New/) 播放歌曲。
@@ -125,3 +126,5 @@ Treeview 显示歌单，Webview view 音乐播放
 ## Release Notes
 
 2022/5/4 ver 0.0.1 发布
+2022/5/5 ver 0.0.2 更新 icon
+2022/5/6 ver 0.0.3 支持后台播放

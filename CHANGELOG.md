@@ -11,3 +11,5 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Enable download song database and update the song list in a treeview 2022/4/30
 
 - Enable a player and songlist, can add song and delete song 5/4
+
+- Background playing 5/6
