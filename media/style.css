@@ -1,0 +1,28 @@
+#pause {
+    display:none;
+}
+#control {
+    padding: 10px;
+}
+.songItem {
+    border: 2px solid white;
+    border-radius: 25px;
+    padding: 10px;
+    margin: 10px;
+}
+#songList {
+    list-style: none;
+}
+.del {
+    display: inline;
+    float: right;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: url("delete.png") no-repeat;
+    background-color: #ffffff;
+    background-size: cover
+}
+.songText {
+    display: inline;
+}
